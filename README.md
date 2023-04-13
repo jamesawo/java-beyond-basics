@@ -28,10 +28,10 @@ You can also go to a directory like `0.DataStructuresInJava` to see some sample 
 -   Concurrency and Multithreading
 
     -   [Threads and Runnable](#threads-and-runnable)
-    -   [Synchronization]()
-    -   [Locks and Conditions]()
-    -   [Executors and Thread Pools]()
-    -   [CompletableFuture]()
+    -   [Synchronization](#synchronization)
+    -   [Locks and Conditions](#locks-and-condition)
+    -   [Executors and Thread Pools](#executors-and-thread-pools)
+    -   [CompletableFuture](#completable-future)
 
 -   Collections Framework
     -   [Iterable and Iterator]()
@@ -545,11 +545,11 @@ These are some differences between the process and thread.
 -   Context switching is faster between the threads as compared to processes.
 -   Inter-process communication is slower and expensive than inter-thread communication.
 -   Any change in Parent process doesn't affect the child process whereas changes in parent thread can affect the child thread.
-    <p>
-        <small>
-            <a href="#getting-started"> back to top</a>
-        </small>
-    </p>
+<p align="right">
+<small>
+<a href="#getting-started"> back to top</a>
+</small>
+</p>
 
 #### Q. What do you understand by inter-thread communication?
 
@@ -560,9 +560,9 @@ These are some differences between the process and thread.
 -   The thread is paused running in its critical section, and another thread is allowed to enter (or lock) in the same critical section to be executed.
 -   It can be obtained by wait(), notify(), and notifyAll() methods.
 
-<p>
+<p align="right">
     <small>
-    <a href="#getting-started"> back to top</a>
+        <a href="#getting-started"> back to top</a>
     </small>
 </p>
 
@@ -572,19 +572,18 @@ These are some differences between the process and thread.
 
 The wait() method is provided by the Object class in Java. This method is used for inter-thread communication in Java. The java.lang.Object.wait() is used to pause the current thread, and wait until another thread invokes the notify() method or the notifyAll() method for this object. In other words, this method behaves exactly as if it simply performs the call wait(0).
 
-<p>
-<small>
-<a href="#getting-started"> back to top</a>
-</small>
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
 </p>
-
 #### Q. Why must wait() method be called from the synchronized block?
 
 ---
 
 We must call the wait method otherwise it will throw java.lang.IllegalMonitorStateException exception. Moreover, we need wait() method for inter-thread communication with notify() and notifyAll(). Therefore It must be present in the synchronized block for the proper and correct communication.
 
-<p>
+<p align="right">
     <small>
         <a href="#getting-started"> back to top</a>
     </small>
@@ -601,7 +600,7 @@ Multithreading programming has the following advantages:
 -   Multithreading provides better utilization of cache memory as threads share the common memory resources.
 -   Multithreading reduces the number of the required server as one server can execute multiple threads at a time.
 
-<p>
+<p align="right">
     <small>
         <a href="#getting-started"> back to top</a>
     </small>
@@ -617,7 +616,7 @@ A thread can have one of the following states during its lifetime:
 -   Waiting/Blocked: In this state, a thread is not running but still alive, or it is waiting for the other thread to finish.
 -   Dead/Terminated: A thread is in terminated or dead state when the run() method exits.
 
-<p>
+<p align="right">
     <small>
         <a href="#getting-started"> back to top</a>
     </small>
@@ -631,7 +630,7 @@ A thread can have one of the following states during its lifetime:
 
 -   Under time slicing, a task executes for a predefined slice of time and then reenters the pool of ready tasks. The scheduler then determines which task should execute next, based on priority and other factors.
 
-<p>
+<p align="right">
     <small>
         <a href="#getting-started"> back to top</a>
     </small>
@@ -643,7 +642,7 @@ A thread can have one of the following states during its lifetime:
 
 In Context switching the state of the process (or thread) is stored so that it can be restored and execution can be resumed from the same point later. Context switching enables the multiple processes to share the same CPU.
 
-<p>
+<p align="right">
     <small>
         <a href="#getting-started"> back to top</a>
     </small>
@@ -671,7 +670,326 @@ public class SleepMessages {
 }
 ```
 
-<p>
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+### Synchronization
+
+#### Q. What is synchronization of threads?
+
+---
+
+Since Threads run in parallel, a new problem arises. What if thread1 modifies data which is being accessed by thread2? How do we ensure that different threads don’t leave the system in an inconsistent state? This problem is usually called synchronization problem.
+
+Let’s first look at an example where this problem can occur. Consider the code in the setAndGetSum method.
+
+```java
+int setCell(int a1, int a2, int a3) {
+    cell1 = a1;
+    sleepForSomeTime();
+    cell2 = a2;
+    sleepForSomeTime();
+    cell3 = a3;
+    sleepForSomeTime();
+    return cell1 + cell2 + cell3;
+}
+```
+
+If following method is running in two different threads, funny things can happen. After setting the value to each cell, there is a call for the Thread to sleep for some time. The value of cell1 can be updated by another thread and this will lead to unexpected results.
+
+The way you can prevent multiple threads from executing the same method is by using the **synchronized** keyword on the method. If a method is marked synchronized, a different thread gets access to the method only when there is no other thread currently executing the method.
+
+Let’s mark the method as synchronized:
+
+```java
+synchronized int setCell(int a1, int a2, int a3) {
+    cell1 = a1;
+    sleepForSomeTime();
+    cell2 = a2;
+    sleepForSomeTime();
+    cell3 = a3;
+    sleepForSomeTime();
+    return cell1 + cell2 + cell3;
+}
+```
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Can you give an example of a synchronized block?
+
+---
+
+All code which goes into the block is synchronized on the current object.
+
+```java
+ void synchronizedExample2() {
+        synchronized (this){
+        //All code goes here..
+        }
+    }
+```
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Can a static method be synchronized?
+
+---
+
+Yes. Static methods and block are synchronized on the class. Instance methods and blocks are synchronized on the instance of the class i.e. an object of the class. Static synchronized methods and instance synchronized methods don’t affect each other. This is because they are synchronized on two different things. Consider the example below.
+
+```java
+synchronized static int getCount(){
+        return count;
+    }
+
+    static int getCount2(){
+        synchronized (SynchronizedSyntaxExample.class) {
+            return count;
+        }
+    }
+```
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What is the use of join method in threads?
+
+---
+
+Join method is an instance method on the Thread class. Let's see a small example to understand what join method does. Let’s consider the thread's declared below: thread2, thread3, thread4
+
+```java
+ThreadExample thread2 = new ThreadExample();
+ThreadExample thread3 = new ThreadExample();
+ThreadExample thread4 = new ThreadExample();
+```
+
+Let’s say we would want to run thread2 and thread3 in parallel but thread4 can only run when thread3 is finished. This can be achieved using join method.Look at the example code below: thread3.join() method call forces the execution of main method to stop until thread3 completes execution. After that, thread4.start() method is invoked, putting thread4 into a Runnable State.
+
+```java
+thread3.start();
+thread2.start();
+thread3.join();//wait for thread 3 to complete
+System.out.println("Thread3 is completed.");
+thread4.start();
+```
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+### Locks and Condition
+
+#### Q. What is Condition Interface
+
+---
+
+A java.util.concurrent.locks.Condition interface provides a thread ability to suspend its execution, until the given condition is true. A Condition object is necessarily bound to a Lock and to be obtained using the newCondition() method.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Differences Between Lock and Synchronized Block
+
+---
+
+There are a few differences between the use of synchronized block and using Lock APIs:
+
+-   A synchronizedblock is fully contained within a method. We can have Lock APIs lock() and unlock() operation in separate methods.
+-   A synchronized block doesn't support the fairness. Any thread can acquire the lock once released, and no preference can be specified. We can achieve fairness within the Lock APIs by specifying the fairness property. - It makes sure that the longest waiting thread is given access to the lock.
+-   A thread gets blocked if it can't get an access to the synchronized block. The Lock API provides tryLock() method. The thread acquires lock only if it's available and not held by any other thread. This reduces blocking time of thread waiting for the lock.
+-   A thread that is in “waiting” state to acquire the access to synchronized block can't be interrupted. The Lock API provides a method lockInterruptibly() that can be used to interrupt the thread when it's waiting for the lock.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Can a thread enter a synchronized block without acquiring a lock-in Java?
+
+---
+
+No, it's not possible. A thread must acquire the lock required by a synchronized block before entering. The synchronized keyword acquires the lock when a Thread enters and releases the lock Thread leaves the block.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What happens to the thread after calling the wait() method? Does it return lock?
+
+---
+
+Well, when a thread sees that condition to proceed further is not ok, it decides to wait by calling the wait() method, but it does release the lock. Yes, this is really important, a thread is not proceeding further but the lock is released so that other threads waiting for the lock can proceed.
+
+This is also the key difference between the sleep() and the wait() method, which is used to pause a thread
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+### Executors and Thread Pools
+
+#### Q. What Do You Understand By Executor Framework In Java?
+
+---
+
+Executor Framework in java has been introduced since JDK 5. Executor Framework handles creation of thread, creating the thread pool and checking health while running and also terminates if needed.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What Is The Role Of Executorservice In Java?
+
+---
+
+ExecutorService provides different methods to start and terminate thread. There are two methods execute() and submit() in ExecutorService. Execute() method is used for threads which is Runnable and submit() method is used for Callable threads.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What Is The Role Of Futuretask And Future In Java?
+
+---
+
+FutureTask is a cancellable asynchronous computation in java. It can cancel the task which is running. Once the FutureTask will be cancelled, it cannot be restarted. Future is result of asynchronous computation. Future checks if task is complete and if completed it gets the output.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What Is Difference Between Shutdownnow() And Shutdown() In Executor Framework In Java?
+
+---
+
+shutdown() and shutdownNow() methods belongs to ExecutorService. shutdown() method tries to stop the threads and do not accept new task to execute but it completes the execution which has been submitted. shutdownNow() methods also tries to stop the running threads and will not execute any task which has been submitted but not started.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What Are The Different Policy In Executor Framework?
+
+---
+
+There are different policy within ThreadPoolExecutor in java.
+
+-   **ThreadPoolExecutor.AbortPolicy** : AbortPolicy is a handler for rejected task. It handles those task which has been rejected.
+
+-   **ThreadPoolExecutor.CallerRunsPolicy **: This also handles the rejected task and runs the rejected task directly.
+
+-   **ThreadPoolExecutor.DiscardOldestPolicy** : This handles those rejected task that is oldest and unhandled. It discards those that oldest task.
+
+-   **ThreadPoolExecutor.DiscardPolicy** : This is the handler for those rejected task that are rejected silently.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+### Completable Future
+
+#### Q. What is CompletableFuture?
+
+---
+
+CompletableFuture is a class that is part of the Java 8 concurrency API. It allows you to create a task that can be completed in the future, and provides methods for composing and combining multiple CompletableFutures into a single task.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Can you explain what a completion stage is?
+
+---
+
+A completion stage is a stage of a computation that can be completed by a Future. The completion stage can be used to trigger an action upon completion of the Future, or to compose multiple Futures together.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. How do you create a completable future in Java?
+
+---
+
+You can create a completable future in Java by using the CompletableFuture.completedFuture() method. This method takes a value as an input and returns a new CompletableFuture that is already completed with that value.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Does creating an instance of CompletableFuture automatically start its execution? If not, then how can it be started?
+
+---
+
+No, creating an instance of CompletableFuture does not automatically start its execution. In order to start its execution, you must call the .run() or .start() method on the CompletableFuture instance.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Is there any limit to the number of asynchronous tasks that can run concurrently using CompletableFuture?
+
+---
+
+There is no limit to the number of asynchronous tasks that can run concurrently using CompletableFuture.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Can you explain the difference between blocking and non-blocking calls? Which type of call do you prefer to use? Why?
+
+---
+
+Blocking calls are those where the thread making the call will wait until the call returns before continuing. Non-blocking calls, on the other hand, allow the thread to continue executing while the call is being processed. I prefer to use non-blocking calls whenever possible, as they can help to improve performance by allowing the thread to continue working on other tasks while waiting for the results of the call.
+
+<p align="right">
     <small>
         <a href="#getting-started"> back to top</a>
     </small>
