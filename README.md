@@ -35,7 +35,7 @@ You can also go to a directory like `0.DataStructuresInJava` to see some sample 
 
 -   Collections Framework
     -   [Iterable and Iterator](#iterable-and-iterator)
-    -   [List and ArrayList]()
+    -   [List and ArrayList](#list-and-arraylist)
     -   [Set and HashSet]()
     -   [Map and HashMap]()
     -   [Queue and Deque]()
@@ -1193,3 +1193,84 @@ collection.forEach(s -> System.out.println(s));
 ```
 
 This is recently introduced in Java 8. It can be invoked on any Iterable and takes one argument implementing the functional interface java.util.function.Consumer.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### List and ArrayList
+
+#### Q. How to remove duplicates from ArrayList in Java?
+
+---
+
+Since the List interface allows duplicates, ArrayList also allowed it but if you remember Set interface doesn't allow duplicates, which means you can remove duplicates from ArrayList by converting it into a Set and then back to ArrayList, but how will you keep the order intact?
+You can keep the order intact by using a LinkedHashSet
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. How to reverse ArrayList in Java?
+
+---
+
+You can reverse ArrayList by using the Collections.reverse() method. There are a couple of more ways like iterating through the list and copying elements into a new list.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Difference between an array and an ArrayList in Java?
+
+---
+
+The main difference between array and ArrayList is that the former is static and the latter is dynamic. You cannot change the size of the array once created, but ArrayList can grow and increase its size automatically.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. How to synchronize ArrayList in Java?
+
+---
+
+ArrayList is not thread-safe, its not synchronized either, which means you cannot share it between multiple threads if one of them modifies it. You can synchronize ArrayList by using `Collections.synchronizedList()` method.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. When to use ArrayList and LinkedList in Java?
+
+---
+
+Since array provides constant-time search operation, it's better to use ArrayList if search outnumbers add and remove operation, otherwise use LinkedList which provides constant time add and remove operation.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Difference between ArrayList and HashSet in Java?
+
+---
+
+The main difference is the former is List while the later is Set which means ArrayList allowed duplicates, keeps elements in order while HashSet doesn't allow duplicates and provides no ordering guarantee.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
