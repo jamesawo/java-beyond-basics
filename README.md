@@ -34,7 +34,7 @@ You can also go to a directory like `0.DataStructuresInJava` to see some sample 
     -   [CompletableFuture](#completable-future)
 
 -   Collections Framework
-    -   [Iterable and Iterator]()
+    -   [Iterable and Iterator](#iterable-and-iterator)
     -   [List and ArrayList]()
     -   [Set and HashSet]()
     -   [Map and HashMap]()
@@ -994,3 +994,202 @@ Blocking calls are those where the thread making the call will wait until the ca
         <a href="#getting-started"> back to top</a>
     </small>
 </p>
+
+### Collections Framework
+
+#### Iterable and Iterator
+
+#### Q. What are Iterator or cursor in Java?
+
+---
+
+An iterator in Java is a special type of object that provides sequential (one by one) access to the elements of a collection object. It is introduced in Java 1.2 Collections Framework.
+
+We use iterator in the Collections Framework to retrieve elements sequentially (one by one). It is called a universal Iterator or cursor.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What are the types of Iterators in Java?
+
+---
+
+There are four types of iterators or cursors available in Java. They are as:
+
+-   Enumeration
+-   Iterator
+-   ListIterator
+-   Spilterator
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What is Iterable Interface in Java?
+
+---
+
+The Collection interface extends Iterable interface that is present at the top of the collection hierarchy.
+The iterable interface is present in java.lang.Iterable package .
+
+It provides a uniform way to retrieve the elements one by one from a collection object.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. The iterable interface provides which method in Java?
+
+---
+
+The iterable interface provides just one method named iterator() which returns an instance of Iterator and provides access one by one to the elements in the collection object.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. How to create Iterator object in Java?
+
+We create Iterator object by calling iterator() method which is present in the iterable interface.
+The general syntax for creating Iterator object is as follows:
+
+```java
+Iterator itrA = c.iterator(); // c is any collection object.
+Iterator<Type> itrB = c.iterator(); // Generic type.
+```
+
+For example:
+
+```java
+Iterator<String> itr = c.iterator();
+Iterator<Integer> itr = c.iterator();
+```
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What are Iterator methods provided by Iterator interface in Java?
+
+---
+
+The Iterator interface provides three methods in Java. They are as:
+
+-   `public boolean hasNext()`: Return true if the iteration has more elements to traverse (iterate) in the forward direction.
+
+-   `public Object next()`: Return next element in the collection. It will throw NoSuchElementException when the iteration is complete.
+
+-   `public void remove()`: Removes the last or the most recent element returned by the iterator
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What are the advantages of iterating elements of collections using iterator?
+
+---
+
+Java Iterator provides the following advantages. They are:
+
+-   An iterator can be used with any collection classes.
+-   We can perform both read and remove operations.
+-   It acts as a universal cursor for collection API.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What are the limitation of Iterator in Java?
+
+---
+
+Iterator has the following limitations or drawbacks. They are:
+
+-   By using Iterator, we can iterate elements of collection only in the forwarding direction. We cannot iterate in the backward direction. Hence, these are called single-direction cursors.
+-   We can perform either read operation or remove operation.
+-   We cannot perform the replacement of new objects.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. What is fail-safe Iterator?
+
+---
+
+When an Iterator doesn’t throw any exception while modifying the collection during iteration, it is called fail-safe iterator.
+
+Fail-safe iterator makes the copy of the original collection to traverse over the elements. Thus, the original collection remains structurally unchanged.
+
+Some examples of fail-safe iterators are ConcurrentHashMap, CopyOnWriteArrayList, etc.
+
+<p align="right">
+    <small>
+        <a href="#getting-started"> back to top</a>
+    </small>
+</p>
+
+#### Q. Explain different ways to iterate over collection in Java.
+
+---
+
+There are many ways to iterate over elements of a collection in Java. Following are the most common methods.
+
+-   Using enhanced For loop: The following code is an example.
+
+```java
+Collection<String> collection = Arrays.asList("John", "Harvey", "Jacob");
+
+for(String s : collection) {
+    System.out.println(s);
+}
+```
+
+-   Using Iterator method: The following code is an example.
+
+```java
+
+Collection<String> collection = Arrays.asList("One", "Two", "Three", "Four", "Five");
+
+Iterator<String> itr = collection.iterator();
+while(itr.hasNext()) {
+    System.out.println(itr.next());
+}
+
+```
+
+-   Using Simple For loop: A sample code is as:
+
+```java
+List<String> list = Arrays.asList("One", "Two", "Three", "Four");
+for( int i = 0; i < list.size(); i++ )
+{
+System.out.println(list.get(i));
+}
+```
+
+-   Using forEach method: An example code is as:
+
+```java
+Collection<String> collection = Arrays.asList("Apple", "Orange", "Banana", "Guava");
+collection.forEach(s -> System.out.println(s));
+```
+
+This is recently introduced in Java 8. It can be invoked on any Iterable and takes one argument implementing the functional interface java.util.function.Consumer.
